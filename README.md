@@ -1,4 +1,5 @@
 # dmx
+
 A Go package for interacting with `dmenu` and some utilities that use it.
 
 ### History
@@ -12,6 +13,14 @@ executable path?" And lo&mdash;a Python script to wrap `dmenu` was born.
 
 This evolved through several forms and languages, and has currently alighted
 upon Go (and, obviously, its current form).
+
+### Requirements
+
+Obviously, to use this package or anything of the utilities that depend on it,
+you must have [`dmenu`](http://tools.suckless.org/dmenu/) installed. (There
+may very well be a binary package for your distribution; be aware of the
+limitations of your installed version.) `dmx` also relies on my
+['dconfig'](https://github.com/d2718/dconfig/) package.
 
 ### Overview
 
@@ -70,9 +79,7 @@ type Choice struct {
 }
 
 // Choice implements dmx.Item
-func (c Choice) Key() string {
-    return c.Token
-}
+func (c Choice) Key() string { return c.Token }
 
 func (c Choice) MenuLine(width int) []byte {
     ml_str := fmt.Sprintf("%-*s    %s\n", width, c.Token, c.Description)
@@ -80,8 +87,63 @@ func (c Choice) MenuLine(width int) []byte {
 }
 
 // We don't care about sorting these, but we need to implement dmx.Item.
-func (c Choice) SortsBefore(itm dmx.Item) bool {
-    return true
+func (c Choice) SortsBefore(itm dmx.Item) bool { return true }
+```
+
+We need to pass `dmx.DmenuSelect()` a `dmx.ItemList`, which is just a
+slice of `dmx.Item`s. So let's populate our slice.
+
+```go
+choices := make(dmx.ItemList, 0, 6)
+
+choices = append(choices, &Choice {
+                            Token: "writer",
+                            Description: "LibreOffice Writer",
+                            Value: "/usr/bin/soffice --nologo --writer",
+                          })
+
+// ...
+// many lines of appending elided
+// ...
+
+choices = append(choices. &Choice {
+                            Token: "arandr",
+                            Description: "X Output Control and Configuration",
+                            Value: "/usr/bin/arandr"
+                          })
+```
+
+Now passing our slice to `dmx.DmenuSelect()` will cause `dmenu` to present 
+the above choices for the user to select, and then return the `dmx.Item`
+corresponding to his or her choice:
+
+```go
+chosen, err := dmx.DmenuSelect("execute: ", choices)
+if err != nil {
+    fmt.Sprintf(os.Stderr, "error running dmenu: %s\n", err)
 }
 ```
 
+If `chosen` ends up being non-nil, we can then pass `chosen.Value` to the
+shell or `exec.Cmd.Run()` or something.
+
+See the source of the included utilities for complete implementations.
+
+### Included Utilities
+
+The `utils/` directory includes some system utilities that rely on this
+library. See the `README` there for more details.
+
+  * `fatdmenu` &mdash The original use case, `fatdmenu` functions similarly
+    to the example in the "Overview" section above, but with an
+    arbitrarily-deeply-nested heirarchy of menus and submenus. I use this
+    program as both a program launcher in conjunction with
+    [`i3`](https://i3wm.org/) and as a bookmark manager in conjunction
+    with [`uzbl`](https://www.uzbl.org/).
+    
+  * `fdmcm` ("Fat DMenu Clipboard Manager") &mdash; A clipboard manager for
+    storing from and retrieving to X's PRIMARY and CLIPBOARD selections.
+
+  * `fdmfc` ("Fat DMenu File Chooser") &mdash; Use `dmenu` to navigate through
+    your machine's filesystem and select a path.
+    
