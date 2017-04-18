@@ -9,7 +9,8 @@ This began many years ago when I was running
 [`dmenu`](http://tools.suckless.org/dmenu/) to present you all the possible
 executable options in your `$PATH`. I thought, "Wouldn't it be great if `dmenu`
 could present you more descriptive options, yet still spit out the proper
-executable path?" And lo&mdash;a Python script to wrap `dmenu` was born.
+executable path?" And lo&mdash;a Python script to wrap `dmenu`, a sort of
+"fat" `dmenu`, if you will, was born.
 
 This evolved through several forms and languages, and has currently alighted
 upon Go (and, obviously, its current form).
@@ -20,7 +21,7 @@ Obviously, to use this package or anything of the utilities that depend on it,
 you must have [`dmenu`](http://tools.suckless.org/dmenu/) installed. (There
 may very well be a binary package for your distribution; be aware of the
 limitations of your installed version.) `dmx` also relies on my
-['dconfig'](https://github.com/d2718/dconfig/) package.
+[`dconfig`](https://github.com/d2718/dconfig/) package.
 
 ### Overview
 
@@ -115,7 +116,10 @@ choices = append(choices. &Choice {
 
 Now passing our slice to `dmx.DmenuSelect()` will cause `dmenu` to present 
 the above choices for the user to select, and then return the `dmx.Item`
-corresponding to his or her choice:
+corresponding to his or her choice. (`dmx.DmenuSelect()` calls `Key()` on each
+element of `choices` and passes the longest value to each element's
+`MenuLine()` method, allowing for the nice alignment of the `Description`
+fields.):
 
 ```go
 chosen, err := dmx.DmenuSelect("execute: ", choices)
@@ -134,12 +138,12 @@ See the source of the included utilities for complete implementations.
 The `utils/` directory includes some system utilities that rely on this
 library. See the `README` there for more details.
 
-  * `fatdmenu` &mdash The original use case, `fatdmenu` functions similarly
+  * `fatdmenu` &mdash; The original use case, `fatdmenu` functions similarly
     to the example in the "Overview" section above, but with an
     arbitrarily-deeply-nested heirarchy of menus and submenus. I use this
-    program as both a program launcher in conjunction with
-    [`i3`](https://i3wm.org/) and as a bookmark manager in conjunction
-    with [`uzbl`](https://www.uzbl.org/).
+    as both a program launcher in conjunction with [`i3`](https://i3wm.org/)
+    and as a bookmark manager in conjunction with
+    [`uzbl`](https://www.uzbl.org/).
     
   * `fdmcm` ("Fat DMenu Clipboard Manager") &mdash; A clipboard manager for
     storing from and retrieving to X's PRIMARY and CLIPBOARD selections.

@@ -192,12 +192,12 @@ func main() {
     var doPurge   bool = false
     var altCfg  string = ""
     
-    flag.BoolVar(&doSave,    "s", false, "save current PRIMARY selection")
-    flag.BoolVar(&doRecall,  "r", false, "recall saved selection to CLIPBOARD")
+    flag.BoolVar(&doSave,    "s", false, "Save current PRIMARY selection")
+    flag.BoolVar(&doRecall,  "r", false, "Recall saved selection to CLIPBOARD")
     flag.BoolVar(&doExpunge, "x", false, "eXpunge a specific clipboard item")
-    flag.BoolVar(&doPurge,   "p", false, "remove ALL clipboard items")
-    flag.StringVar(&clipDir, "d", "/tmp/fdmcm", "specify an alternate directory for clipboard files")
-    flag.StringVar(&altCfg,  "c", "", "specify an alternate configuration file")
+    flag.BoolVar(&doPurge,   "p", false, "Purge _all_ clipboard items")
+    flag.StringVar(&clipDir, "d", "/tmp/fdmcm", "specify an alternate Directory for clipboard files")
+    flag.StringVar(&altCfg,  "config", "", "specify an alternate CONFIGuration file")
     flag.Parse()
     clipDir, err := filepath.Abs(clipDir)
     if err != nil {

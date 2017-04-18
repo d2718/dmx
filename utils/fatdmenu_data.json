@@ -1,0 +1,70 @@
+{
+    "key": "prog",
+    "desc": "Programming-Related sites",
+    "stuff": [
+        {
+            "key": "github",
+            "desc": "Github Info and Repositories",
+            "stuff": [
+                {
+                    "key": "md",
+                    "desc": "GitHub Markdown Cheatsheet",
+                    "val": "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
+                },
+                {
+                    "key": "d2718",
+                    "desc": "d2718's GitHub Repositories",
+                    "val": "https://github.com/d2718?tab=repositories"
+                }
+            ]
+        },
+        {
+            "key": "go",
+            "desc": "Golang Info and Documentation",
+            "stuff": [
+                {
+                    "key": "packages",
+                    "desc": "Documentation on Individual Packages",
+                    "stuff": [
+                        {
+                            "key": "fmt",
+                            "desc": "fmt implements formatted I/O",
+                            "val": "https://golang.org/pkg/fmt/"
+                        },
+                        {
+                            "key": "json",
+                            "desc": "encoding/json implements encoding and decoding of JSON data",
+                            "val": "https://golang.org/pkg/encoding/json/"
+                        },
+                        {
+                            "key": "dmx",
+                            "desc": "github.com/d2718/dmx provides a framework for interacting with dmenu",
+                            "val": "https://github.com/d2718/dmx/"
+                        }
+                    ]
+                },
+                {
+                    "key": "org",
+                    "desc": "Go Code Organization",
+                    "val": "https://golang.org/doc/code.html"
+                },
+                {
+                    "key": "chan",
+                    "desc": "Channels Tutorial [Alexander Guz's Blog]",
+                    "val": "http://guzalexander.com/2013/12/06/golang-channels-tutorial.html"
+                }
+            ]
+        }
+    ]
+}
+
+{
+    "key": "gmail",
+    "desc": "Gmail Requires no Description",
+    "val": "https://mail.google.com/"
+}
+{
+    "key": "weather",
+    "desc": "Weather in Durham, NC",
+    "val": "https://www.wunderground.com/us/nc/durham"
+}

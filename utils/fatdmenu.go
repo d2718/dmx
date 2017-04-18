@@ -307,18 +307,18 @@ func main() {
     var newVal string = ""
     var altCfg string = ""
     
-    flag.StringVar(&separator,    "s", "/",    "category separator")
-    flag.StringVar(&basePrompt,   "p", "",     "base prompt")
-    flag.BoolVar(&addItem,        "n", false,  "add new entry or category")
+    flag.StringVar(&separator,    "s", "/",    "category Separator")
+    flag.StringVar(&basePrompt,   "p", "",     "base Prompt")
+    flag.BoolVar(&addItem,        "n", false,  "add New entry or category")
     flag.BoolVar(&expungeItem,    "x", false,  "eXpunge item")
-    flag.BoolVar(&selectCat,      "c", false,  "add or select category instead of entry")
-    flag.StringVar(&outputFormat, "f", "%s\n", "output format string (include a %s!)")
-    flag.StringVar(&outputFile,   "o", "",     "output file")
-    flag.BoolVar(&appendOutput,   "a", false,  "append to output file instead of overwriting")
-    flag.StringVar(&newKey,       "k", "",     "new key for added item")
-    flag.StringVar(&newDesc,      "d", "",     "new description for added item")
-    flag.StringVar(&newVal,       "v", "",     "new output value for added item")
-    flag.StringVar(&altCfg,  "config", "",     "specify an alternate configuration file")
+    flag.BoolVar(&selectCat,      "c", false,  "add or select Category instead of entry")
+    flag.StringVar(&outputFormat, "f", "%s\n", "output Format string (include a %s!)")
+    flag.StringVar(&outputFile,   "o", "",     "Output file")
+    flag.BoolVar(&appendOutput,   "a", false,  "Append to output file instead of overwriting")
+    flag.StringVar(&newKey,       "k", "",     "new Key for added item")
+    flag.StringVar(&newDesc,      "d", "",     "new Description for added item")
+    flag.StringVar(&newVal,       "v", "",     "new output Value for added item")
+    flag.StringVar(&altCfg,  "config", "",     "specify an alternate CONFIGuration file")
     flag.Parse()
     catSelector = &SpecialEntry{
                     line: []byte(fmt.Sprintf("%s [ choose current category ]\n",

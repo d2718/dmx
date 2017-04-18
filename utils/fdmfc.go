@@ -215,11 +215,11 @@ func main() {
     var altCfg string = ""
     var err error = nil
     
-    flag.BoolVar(&selectDirectory,   "d", false, "allow directory selection")
-    flag.BoolVar(&showHidden,        "h", false, "show hidden files")
-    flag.BoolVar(&caseSensitiveSort, "s", false, "case-sensitive filename sorting")
-    flag.StringVar(&outputFormat,    "f", "%s\n", "output formatting string")
-    flag.StringVar(&altCfg,          "c", "", "specify alternate configuration file")
+    flag.BoolVar(&selectDirectory,   "d", false, "allow Directory selection")
+    flag.BoolVar(&showHidden,        "h", false, "show Hidden files by default")
+    flag.BoolVar(&caseSensitiveSort, "s", false, "case-Sensitive filename sorting")
+    flag.StringVar(&outputFormat,    "f", "%s\n", "output Formatting string")
+    flag.StringVar(&altCfg,          "config", "", "specify alternate CONFIGuration file")
     flag.Parse()
     if altCfg == "" {
         dmx.Autoconfigure(nil)
