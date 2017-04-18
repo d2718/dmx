@@ -133,6 +133,17 @@ shell or `exec.Cmd.Run()` or something.
 
 See the source of the included utilities for complete implementations.
 
+### `dmx.conf`
+
+This file contains options for setting, e.g., the font and colors that `dmenu`
+will use. Calling `dmx.Autoconfigure(nil)` will look for it at
+`~/.config/dmx.conf` and then `/usr/share/dmx.conf`. Passing a slice of
+strings with paths in them to `dmx.Autoconfigure()` will cause it to look
+in those places first. Default behavior is for all utilities to look for
+the same configuration file, so as to present a consistent look and feel.
+This option list may grow over time, and may begin to accrue options not
+used by or useful for every utility.
+
 ### Included Utilities
 
 The `utils/` directory includes some system utilities that rely on this
