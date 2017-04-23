@@ -4,7 +4,7 @@
 // see https://github.com/d2718/dmx/
 //
 // by Dan Hill
-// updated 2017-04-17
+// updated 2017-04-22
 //
 // A simple clipboard manager to manage multiple clipboard entries.
 // It is intended to be invoked via window manager bindings. For example,
@@ -22,6 +22,7 @@ package main
 
 import( "bytes"; "flag"; "fmt"; "io"; "os"; "os/exec"; "path/filepath"
         "regexp"; "sort"; "strconv"
+        "github.com/d2718/dconfig"
         "github.com/d2718/dmx" )
 
 const DEBUG bool = false
@@ -209,6 +210,18 @@ func main() {
     } else {
         dmx.Autoconfigure([]string{altCfg})
     }
+    
+    cfg_files := make([]string, 0, 3)
+    if altCfg != "" {
+        cfg_files = append(cfg_files, altCfg)
+    }
+    cfg_files = append(cfg_files, os.ExpandEnv("$HOME/.config/dmx.conf"))
+    cfg_files = append(cfg_files, "/usr/share/dmx.conf")
+    
+    dconfig.Reset()
+    dconfig.AddString(&xclipPath, "xclip_path", dconfig.STRIP)
+    dconfig.AddString(&clipDir, "fdmcm_clip_dir", dconfig.STRIP)
+    dconfig.Configure(cfg_files, false)
     
     if doSave {
         var next_n int = 0

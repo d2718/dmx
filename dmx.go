@@ -6,7 +6,7 @@
 //
 // by Dan Hill
 // https://github.com/d2718/
-// updated 2017-04-17
+// updated 2017-04-22
 //
 // suckless: http://suckless.org/
 // dmenu:    http://tools.suckless.org/dmenu/
@@ -37,12 +37,13 @@ var(
 // and reads from the first one it finds.
 //
 func Autoconfigure(other_cfgs []string) error {
-    dconfig.AddString("dmenu", DmenuPath, dconfig.STRIP)
-    dconfig.AddString("font", Font, dconfig.STRIP)
-    dconfig.AddString("normal_bg", NormalBG, dconfig.STRIP)
-    dconfig.AddString("normal_fg", NormalFG, dconfig.STRIP)
-    dconfig.AddString("selected_bg", SelectedBG, dconfig.STRIP)
-    dconfig.AddString("selected_fg", SelectedFG, dconfig.STRIP)
+    dconfig.Reset()
+    dconfig.AddString(&DmenuPath,  "dmenu",       dconfig.STRIP)
+    dconfig.AddString(&Font,       "font",        dconfig.STRIP)
+    dconfig.AddString(&NormalBG,   "normal_bg",   dconfig.STRIP)
+    dconfig.AddString(&NormalFG,   "normal_fg",   dconfig.STRIP)
+    dconfig.AddString(&SelectedBG, "selected_bg", dconfig.STRIP)
+    dconfig.AddString(&SelectedFG, "selected_fg", dconfig.STRIP)
     
     cfg_files := make([]string, 0, 2)
     for _, fname := range other_cfgs {
@@ -51,16 +52,9 @@ func Autoconfigure(other_cfgs []string) error {
     cfg_files = append(cfg_files, os.ExpandEnv("$HOME/.config/dmx.conf"))
     cfg_files = append(cfg_files, "/usr/share/dmx.conf")
     
-    _ = dconfig.Configure(cfg_files, false)
+    err := dconfig.Configure(cfg_files, false)
     
-    DmenuPath, _  = dconfig.GetString("dmenu")
-    Font, _       = dconfig.GetString("Font")
-    NormalFG, _   = dconfig.GetString("normal_fg")
-    NormalBG, _   = dconfig.GetString("normal_bg")
-    SelectedFG, _ = dconfig.GetString("selected_fg")
-    SelectedBG, _ = dconfig.GetString("selected_bg")
-    
-    return nil
+    return err
 }
 
 // Interface Item represents a single menu item to be passed to dmenu.
